@@ -1,0 +1,34 @@
+sentenciaIf ::= "if" "("expresion ")"{
+	<Sentencias>
+}[sentenciaElse];
+
+sentenciaElse ::= "else if" "("expresion ")"{
+	<Sentencias>
+}[sentenciaElse];
+		| "else" {
+	<Sentencias>
+};
+
+
+sentenciaFor ::="for" (tipo_dato ID "=" expresion; expresion; ID++ ){
+<Sentencias>
+};
+
+sentenciaSwitch ::= "switch" "(" ID ")"{
+sentenciasCase
+}
+
+sentenciasCase ::= "case" expresion: 
+<Sentencias>
+"break;"[sentenciasCase]
+	|"default": 
+<Sentencias>
+"break;"
+
+sentenciaWhile ::="while" "(" expresion ")" {
+<Sentencias>
+};
+
+sentenciaDoWhile ::="do" {
+<Sentencias>
+}"while" "(" expresion ")" ";"
