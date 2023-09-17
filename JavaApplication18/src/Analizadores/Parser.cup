@@ -30,8 +30,32 @@ public void mostrarStringGlobales(){
         System.out.println("Variable global " + entry.getKey() + " vale " + entry.getValue());
         if(entry.getValue() == null){
             mapaString.put(entry.getKey(),entry.getKey());
+        }
     }
-    }
+}
+    public String titulo = "titulo";
+    public List<String> ejeX = new ArrayList<String>();
+    public List<String> ejeY = new ArrayList<String>();
+    public List<Double> valores = new ArrayList<>();
+    public String tituloX = "tituloX";
+    public String tituloY = "tituloY";
+
+public void agregarValor(String a){
+    try {   
+           double decimal = Double.parseDouble(a);
+           valores.add(decimal);
+        }catch (Exception ex) {
+            System.out.println("Error al recibir valor, se ingresara un 0");
+            valores.add(0.0);
+        }
+}
+public void agregarString(String a){
+    try {   
+           ejeX.add(a+"");
+        }catch (Exception ex) {
+            System.out.println("Error al recibir texto, se ingresara un 0");
+           ejeX.add("texto");
+        }
 }
 :} 
 
@@ -50,12 +74,13 @@ terminal String PR_VOID;
 terminal String PR_MAIN,PR_DGLOBALES ;
 terminal String PR_INT;
 terminal String PR_STRING;
-terminal String PR_DOUBLE; 
+terminal String PR_DECIMAL; 
 terminal String PR_BOOL; 
 terminal String PR_CONSOLE;
 terminal String PR_WRITE;
 terminal String PR_NEWVALOR;
 terminal String PR_IF, PR_ELSE, PR_FOR, PR_SWITCH, PR_CASE, PR_DEFAULT, PR_BREAK,PR_WHILE, PR_DO;
+terminal String PR_GBARRAS, PR_GPIE, PR_TITULO, PR_EJEX, PR_VALORES, PR_TITULOX, PR_TITULOY;
 terminal String vacio;
 
 // 4. No Terminales
@@ -63,6 +88,9 @@ non terminal ini, entradas;
 non terminal sentencias, sentencia;
 non terminal funciones, funcion, funcion_globales;
 non terminal sentencias_globales, sentencia_global;
+non terminal  funcion_grafica, valor_string, valor_double;
+non terminal sentencias_graficas, sentencia_grafica;
+non terminal elementos_string, elementos_double;
 non terminal sentencia_print;
 non terminal sentencia_declaracion,sentencia_globales;
 non terminal sentenciaIf, sentenciaElse, sentenciaSwitch, sentenciasCase;
@@ -120,12 +148,53 @@ sentencia_global ::= PR_STRING ID:a IGUAL STR:b PTCOMA
                 {:RESULT="String "+a+" = "+b+ ";";  mapaString.put(a,b); mostrarStringGlobales();:}
                     |PR_STRING ID:a IGUAL referencia_json:b PTCOMA 
                 {:RESULT="String "+a+" = "+b+";"; mapaString.put(a,mapaString.get(b)); mostrarStringGlobales();:}
-                    |PR_DOUBLE ID:a IGUAL DECIMAL:b PTCOMA 
+                    |PR_DECIMAL ID:a IGUAL DECIMAL:b PTCOMA 
                 {:RESULT="Double "+a+" = "+b+";"; mapaDouble.put(a,Double.parseDouble(b)); mostrarIntGlobales();:}
-                    |PR_DOUBLE ID:a IGUAL referencia_json:b PTCOMA 
+                    |PR_DECIMAL ID:a IGUAL referencia_json:b PTCOMA 
                 {:RESULT="Double "+a+" = "+b+";"; mapaDouble.put(a,mapaDouble.get(b)); mostrarIntGlobales();:}
 ;
 
+
+funcion_grafica ::= PR_VOID PR_GBARRAS PARIZQ PARDER LLAVIZQ sentencias_graficas:a LLAVDER
+    {: RESULT="def GraficaBarras() :{\n " + a + "\n}"; :}
+                | PR_VOID PR_GPIE PARIZQ PARDER LLAVIZQ sentencias_graficas:a LLAVDER
+    {: RESULT="def DefinirGlobales() :{\n " + a + "\n}"; :}
+;
+
+sentencias_graficas ::= sentencia_grafica:a sentencias_graficas:b {:RESULT=a + "\n"+b;:}
+                        | sentencia_grafica:a     {:RESULT=a;:}
+;
+
+sentencia_grafica ::= PR_STRING PR_TITULO IGUAL valor_string:a PTCOMA     
+                {:RESULT="String titulo = "+a+";"; titulo = a+""; System.out.println("Valor titulo: " + titulo) ; :}
+
+                    | PR_STRING PR_TITULOX IGUAL valor_string:a PTCOMA     
+                {:RESULT="String tituloX = "+a+";"; tituloX = a+"";System.out.println("Valor tituloX: " + tituloX) ;:}
+
+                    | PR_STRING PR_TITULOY IGUAL valor_string:a PTCOMA     
+                {:RESULT="String tituloY = "+a+";"; tituloY = a+"";System.out.println("Valor tituloY: " + tituloY) ;:}
+
+                    | PR_STRING CORIZQ CORDER PR_EJEX IGUAL LLAVIZQ elementos_string:a LLAVDER PTCOMA     
+                {:RESULT="String [] ejeX = {"+a+"}";:}
+
+                    | PR_DECIMAL CORIZQ CORDER PR_VALORES IGUAL LLAVIZQ elementos_double:a LLAVDER PTCOMA     
+                {:RESULT="int [] valores = {"+a+"}";:}
+;
+elementos_double ::= valor_double:a {: RESULT = a;  agregarValor(a+"");:}
+        | elementos_double:a COMA elementos_double :b {:RESULT=a+","+b;:}
+;
+valor_double ::= DECIMAL:a {:RESULT=a;:}
+                | referencia_json:a {:RESULT=mapaDouble.get(a);:}
+                | ID:a {:RESULT=mapaDouble.get(a);:}
+;
+
+elementos_string ::= valor_string:a  {: RESULT = a; agregarString(a+"");:}
+        | elementos_string:a COMA elementos_string :b {:RESULT=a+","+b+"";:}
+;
+valor_string ::= STR:a {:RESULT=a;:}
+                | referencia_json:a {:RESULT=mapaString.get(a);:}
+                | ID:a {:RESULT=mapaString.get(a);:}
+;
 sentencia ::= sentencia_print:a     {:RESULT=a;:}
             | sentencia_declaracion:a   {:RESULT=a;:}
             | sentencia_globales:a      {:RESULT=a;:}
@@ -134,7 +203,8 @@ sentencia ::= sentencia_print:a     {:RESULT=a;:}
             | sentenciaSwitch:a  {:RESULT=a;:}
             | sentenciaWhile:a   {:RESULT=a;:}
             | sentenciaDoWhile:a   {:RESULT=a;:}
-            |funcion_globales:a     {:RESULT=a;:}
+            | funcion_globales:a     {:RESULT=a;:}
+            | funcion_grafica:a     {:RESULT=a;:}
             | funciones:a     {:RESULT=a;:}
 ;
 
@@ -157,7 +227,7 @@ sentenciaSwitch ::= PR_SWITCH PARIZQ ID:a PARDER LLAVIZQ sentenciasCase:b LLAVDE
 
 sentenciasCase ::= PR_CASE expresion:a DOSPUNTOS sentencias:b PR_BREAK PTCOMA   {: RESULT= a+": " + b+ ", \n "; :}
                 | PR_CASE expresion:a DOSPUNTOS sentencias:b PR_BREAK PTCOMA sentenciasCase:c {: RESULT= a+": " + b+ ", \n " + c; :}
-                | PR_DEFAULT sentencias:b PR_BREAK PTCOMA{: RESULT="_: " + b+ ","; :}
+                | PR_DEFAULT sentencias:b PR_BREAK PTCOMA{: RESULT="4: " + b+ ","; :}
 ;
 
 sentenciaWhile ::= PR_WHILE PARIZQ expresion:a PARDER LLAVIZQ sentencias:b LLAVDER {: RESULT="while "+ a +":{\n" + b + "\n}"; :}
@@ -184,12 +254,12 @@ sentencia_declaracion ::= tipo_dato:a ID:b IGUAL expresion:c PTCOMA {:RESULT=a+"
 lista ::= LLAVIZQ elementos:a LLAVDER {:RESULT="[" +a+ "]";:}
 ;
 
-elementos ::= expresion:a   {:RESULT=a;:}
-            | elementos:a COMA elementos:b {:RESULT= a + "," + b;:}
+elementos ::= expresion:a   {:RESULT=""+a;:}
+            | elementos:a COMA elementos:b {:RESULT= ""+a + "," + b+"";:}
 ;
 
 tipo_dato ::= PR_INT    {:RESULT="int";:}
-            |PR_DOUBLE  {:RESULT="double";:}
+            |PR_DECIMAL  {:RESULT="double";:}
             |PR_STRING {:RESULT="string";:}
             |PR_BOOL    {:RESULT="bool";:}
 ;

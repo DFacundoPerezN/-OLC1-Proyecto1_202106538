@@ -10,6 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import Analizadores.Parser;
 import Analizadores.Scanner;
+import Clases.GraficoBarras;
+import Clases.GraficoPie;
 
         
 /**
@@ -99,14 +101,19 @@ public class JavaApplication18 {
 "	\"variable2\": 5.0\n" +
 "\n" +
 "}";
-       String test ="void main(){\n" +
-        "		double pe1 = 0.8;\n" +
-        "	}\n" ;
+       String test ="void GraficaBarras(){\n" +
+        "		string Titulo= \"reporte1\";\n" +
+        "		string [] Ejex= { \"Probabilidad Esperada clase 1\", \"Probabilidad Obtenida Clase 1\", \"var2\", \"var22\", \"var3\", \"var33\"};\n" +
+        "		double [] Valores= { pe1, po1, pe2, po2, pe3, ${ NewValor, \"archivo1.json\", \"valor2\"} };\n" +
+        "		string TituloX= \"Atributo\";\n" +
+        "		string TituloY= \"Puntaje\";\n" +
+        "	}";
        
     System.out.println("");
-    String contenido = AnalizadorLexico.ReporteLexemas(m);   
-    
+    //String contenido = AnalizadorLexico.ReporteLexemas(m);
     //GuardarArchivo.writeToFile("Reportes/Lexemas.html", contenido);
     }
+    public GraficoPie graficoPieGlobal;
+    public GraficoBarras graficoBarrasGlobal;
     
 }

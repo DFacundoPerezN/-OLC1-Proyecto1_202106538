@@ -76,7 +76,42 @@ comentarioSimple = "//"(InputCharacter)*(LineTerminator)?
     System.out.println("Reconocio PR: "+yytext()); 
     lexemas.add( new Lexema("DefinirGlobales","Palabra Reservada",yyline,yychar));
     return new Symbol(sym.PR_DGLOBALES,yyline,yychar,yytext());         
-} 
+}
+"graficabarras" {  
+    System.out.println("Reconocio PR: "+yytext()); 
+    lexemas.add( new Lexema("DefinirGlobales","Palabra Reservada",yyline,yychar));
+    return new Symbol(sym.PR_GBARRAS,yyline,yychar,yytext());         
+}
+"graficaPIE" {  
+    System.out.println("Reconocio PR: "+yytext()); 
+    lexemas.add( new Lexema("DefinirGlobales","Palabra Reservada",yyline,yychar));
+    return new Symbol(sym.PR_GPIE,yyline,yychar,yytext());         
+}
+"titulo" {  
+    System.out.println("Reconocio PR: "+yytext()); 
+    lexemas.add( new Lexema("DefinirGlobales","Palabra Reservada",yyline,yychar));
+    return new Symbol(sym.PR_TITULO,yyline,yychar,yytext());         
+}
+"ejex" {  
+    System.out.println("Reconocio PR: "+yytext()); 
+    lexemas.add( new Lexema("DefinirGlobales","Palabra Reservada",yyline,yychar));
+    return new Symbol(sym.PR_EJEX,yyline,yychar,yytext());         
+}
+"valores" {  
+    System.out.println("Reconocio PR: "+yytext()); 
+    lexemas.add( new Lexema("DefinirGlobales","Palabra Reservada",yyline,yychar));
+    return new Symbol(sym.PR_VALORES,yyline,yychar,yytext());         
+}
+"titulox" {  
+    System.out.println("Reconocio PR: "+yytext()); 
+    lexemas.add( new Lexema("DefinirGlobales","Palabra Reservada",yyline,yychar));
+    return new Symbol(sym.PR_TITULOX,yyline,yychar,yytext());         
+}
+"tituloy" {  
+    System.out.println("Reconocio PR: "+yytext()); 
+    lexemas.add( new Lexema("DefinirGlobales","Palabra Reservada",yyline,yychar));
+    return new Symbol(sym.PR_TITULOY,yyline,yychar,yytext());         
+}
 "int" {  
     System.out.println("Reconocio PR: "+yytext()); 
     lexemas.add( new Lexema("int","Palabra Reservada",yyline,yychar));

@@ -186,6 +186,7 @@ public class InterfazGraficas extends javax.swing.JFrame {
         valores.add(n4);
         
         List<String> ejeX = new ArrayList<>(List.of("Uno", "Dos", "Tres","Cuatro"));
+        //ejeX = (List.of("Uno", "Dos", "Tres","Cuatro"));
         
         DefaultPieDataset infoPie = new DefaultPieDataset();
         for (int i=0; i<valores.size();i++){

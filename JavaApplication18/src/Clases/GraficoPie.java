@@ -26,4 +26,45 @@ public class GraficoPie {
             this.ejeX = ejeX;
             this.valores = valores;
         }
+            
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getTituloEjeX() {
+        return tituloEjeX;
+    }
+
+    public void setTituloEjeX(String tituloEjeX) {
+        this.tituloEjeX = tituloEjeX;
+    }
+
+    public String getTituloEjeY() {
+        return tituloEjeY;
+    }
+
+    public void setTituloEjeY(String tituloEjeY) {
+        this.tituloEjeY = tituloEjeY;
+    }
+
+    public List<String> getEjeX() {
+        return ejeX;
+    }
+
+    public void setEjeX(List<String> ejeX) {
+        this.ejeX = ejeX;
+    }
+
+    public List<Double> getValores() {
+        return valores;
+    }
+
+    public void setValores(List<Double> valores) {
+        this.valores = valores;
+    }
+            
 }
