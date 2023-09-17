@@ -173,7 +173,7 @@ expresion ::= expresion:a MAS expresion:b {: RESULT = a + " + " + b; :}
             | expresion:a EQUALS expresion:b {: RESULT = a + " == " + b; :}
             | expresion:a DISTINTO expresion:b {: RESULT = a + " != " + b; :}
             | expresion:a AND expresion:b {: RESULT = a + " and " + b; :}
-            | expresion:a OR expresion:b {: RESULT = a + "or " + b; :}
+            | expresion:a OR expresion:b {: RESULT = a + " or " + b; :}
             | NOT expresion:b {: RESULT = " not " + b; :}
             | PARIZQ expresion:a PARDER {:RESULT="("+a+")";:} 
             | ENTERO:a {:RESULT=a;:}
@@ -184,7 +184,7 @@ expresion ::= expresion:a MAS expresion:b {: RESULT = a + " + " + b; :}
             | referencia_json:a {:RESULT=a;:}
 ;
 
-referencia_json ::= DOLLAR LLAVIZQ PR_NEWVALOR COMA STR:a COMA STR:b LLAVDER {:RESULT=a + "," + b;:}
+referencia_json ::= DOLLAR LLAVIZQ PR_NEWVALOR COMA STR:a COMA STR:b LLAVDER {:RESULT="${NewValor,"+ a + "," + b+"}";:}
 ;
 archivo_json ::= LLAVIZQ miembro:a LLAVDER  {:RESULT="{"+a+"}";:}
 ;

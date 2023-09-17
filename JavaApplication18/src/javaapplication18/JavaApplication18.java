@@ -106,7 +106,7 @@ public class JavaApplication18 {
         "	}";
        
     System.out.println("");
-    String contenido = AnalizadorLexico.ReporteLexemas(m);   
+    //String contenido = AnalizadorLexico.ReporteLexemas(m);   
     //GuardarArchivo.writeToFile("Reportes/Lexemas.html", contenido);
     }
     
