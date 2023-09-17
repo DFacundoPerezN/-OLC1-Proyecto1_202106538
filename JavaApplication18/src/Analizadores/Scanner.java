@@ -1126,7 +1126,7 @@ public class Scanner implements java_cup.runtime.Scanner {
           case 47: 
             { System.out.println("Reconocio PR: "+yytext()); 
     lexemas.add( new Lexema("string","Palabra Reservada",yyline,yychar));
-    return new Symbol(sym.PR_BOOL,yyline,yychar,yytext());
+    return new Symbol(sym.PR_STRING,yyline,yychar,yytext());
             } 
             // fall through
           case 100: break;

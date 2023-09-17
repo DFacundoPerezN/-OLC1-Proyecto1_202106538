@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import Analizadores.Parser;
 import Analizadores.Scanner;
+
         
 /**
  *
@@ -21,7 +22,7 @@ public class JavaApplication18 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new InterfazInicial().setVisible(true);
+        //new InterfazInicial().setVisible(true);
         String p = "\n" +
         "\n" +
         "{\n" +
@@ -98,15 +99,13 @@ public class JavaApplication18 {
 "	\"variable2\": 5.0\n" +
 "\n" +
 "}";
-       String test ="void main ( ){\n" +
-        "	int b = 2;\n" +
-               "void DefinirGlobales(){\n" +
-        "		string reporte1 = \"Reporte 1\";\n"+
-        "	}\n" +
-        "	}";
+       String test ="void main(){\n" +
+        "		double pe1 = 0.8;\n" +
+        "	}\n" ;
        
     System.out.println("");
-    //String contenido = AnalizadorLexico.ReporteLexemas(m);   
+    String contenido = AnalizadorLexico.ReporteLexemas(m);   
+    
     //GuardarArchivo.writeToFile("Reportes/Lexemas.html", contenido);
     }
     

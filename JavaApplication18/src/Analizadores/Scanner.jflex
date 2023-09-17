@@ -72,7 +72,7 @@ comentarioSimple = "//"(InputCharacter)*(LineTerminator)?
     lexemas.add( new Lexema("main","Palabra Reservada",yyline,yychar));
     return new Symbol(sym.PR_MAIN,yyline,yychar,yytext());         
 } 
-"DefinirGlobales" {  
+"definirglobales" {  
     System.out.println("Reconocio PR: "+yytext()); 
     lexemas.add( new Lexema("DefinirGlobales","Palabra Reservada",yyline,yychar));
     return new Symbol(sym.PR_DGLOBALES,yyline,yychar,yytext());         
@@ -95,7 +95,7 @@ comentarioSimple = "//"(InputCharacter)*(LineTerminator)?
 "string" {  
     System.out.println("Reconocio PR: "+yytext()); 
     lexemas.add( new Lexema("string","Palabra Reservada",yyline,yychar));
-    return new Symbol(sym.PR_BOOL,yyline,yychar,yytext());     
+    return new Symbol(sym.PR_STRING,yyline,yychar,yytext());     
 } 
 "console" {  
     System.out.println("Reconocio PR: "+yytext()); 

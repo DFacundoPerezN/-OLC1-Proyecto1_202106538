@@ -15,6 +15,24 @@ parser code
     public List<String> salidas = new ArrayList<String>();
     public Map<String, Double> mapaDouble = new HashMap<>();    
     public Map<String, String> mapaString = new HashMap<>();
+
+public void mostrarIntGlobales(){
+    for (Map.Entry<String, Double> entry : mapaDouble.entrySet()) {
+        System.out.println("Variable global "+entry.getKey() + " vale " + entry.getValue());
+        if(entry.getValue() == null){
+            mapaDouble.put(entry.getKey(),0.0);
+        }
+    }
+}
+
+public void mostrarStringGlobales(){
+    for (Map.Entry<String, String> entry : mapaString.entrySet()) {
+        System.out.println("Variable global " + entry.getKey() + " vale " + entry.getValue());
+        if(entry.getValue() == null){
+            mapaString.put(entry.getKey(),entry.getKey());
+    }
+    }
+}
 :} 
 
 // 3. Terminales 
@@ -44,6 +62,7 @@ terminal String vacio;
 non terminal ini, entradas;
 non terminal sentencias, sentencia;
 non terminal funciones, funcion, funcion_globales;
+non terminal sentencias_globales, sentencia_global;
 non terminal sentencia_print;
 non terminal sentencia_declaracion,sentencia_globales;
 non terminal sentenciaIf, sentenciaElse, sentenciaSwitch, sentenciasCase;
@@ -89,8 +108,22 @@ funciones ::= PR_VOID ID:a PARIZQ expresion:b PARDER LLAVIZQ sentencias:c LLAVDE
         {:RESULT="def "+ a +"():{\n"+c+"\n}";  System.out.println("Debo retornar esto: def "+ a +"():{\n"+c+"\n}");:}
 ;
 
-funcion_globales ::= PR_VOID PR_DGLOBALES PARIZQ PARDER LLAVIZQ sentencias:a LLAVDER
+funcion_globales ::= PR_VOID PR_DGLOBALES PARIZQ PARDER LLAVIZQ sentencias_globales:a LLAVDER
     {: RESULT="def DefinirGlobales() :{\n " + a + "\n}"; :}
+;
+
+sentencias_globales ::= sentencia_global:a sentencias_globales:b {:RESULT=a + "\n"+b;:}
+                        |sentencia_global:a     {:RESULT=a;:}
+;
+
+sentencia_global ::= PR_STRING ID:a IGUAL STR:b PTCOMA 
+                {:RESULT="String "+a+" = "+b+ ";";  mapaString.put(a,b); mostrarStringGlobales();:}
+                    |PR_STRING ID:a IGUAL referencia_json:b PTCOMA 
+                {:RESULT="String "+a+" = "+b+";"; mapaString.put(a,mapaString.get(b)); mostrarStringGlobales();:}
+                    |PR_DOUBLE ID:a IGUAL DECIMAL:b PTCOMA 
+                {:RESULT="Double "+a+" = "+b+";"; mapaDouble.put(a,Double.parseDouble(b)); mostrarIntGlobales();:}
+                    |PR_DOUBLE ID:a IGUAL referencia_json:b PTCOMA 
+                {:RESULT="Double "+a+" = "+b+";"; mapaDouble.put(a,mapaDouble.get(b)); mostrarIntGlobales();:}
 ;
 
 sentencia ::= sentencia_print:a     {:RESULT=a;:}
@@ -101,8 +134,8 @@ sentencia ::= sentencia_print:a     {:RESULT=a;:}
             | sentenciaSwitch:a  {:RESULT=a;:}
             | sentenciaWhile:a   {:RESULT=a;:}
             | sentenciaDoWhile:a   {:RESULT=a;:}
-            | funciones:a     {:RESULT=a;:}
             |funcion_globales:a     {:RESULT=a;:}
+            | funciones:a     {:RESULT=a;:}
 ;
 
 sentenciaIf ::= PR_IF PARIZQ expresion:a PARDER LLAVIZQ sentencias:b LLAVDER {: RESULT="if "+ a +":{\n" + b + "\n}"; :}
@@ -184,7 +217,8 @@ expresion ::= expresion:a MAS expresion:b {: RESULT = a + " + " + b; :}
             | referencia_json:a {:RESULT=a;:}
 ;
 
-referencia_json ::= DOLLAR LLAVIZQ PR_NEWVALOR COMA STR:a COMA STR:b LLAVDER {:RESULT="${NewValor,"+ a + "," + b+"}";:}
+referencia_json ::= DOLLAR LLAVIZQ PR_NEWVALOR COMA STR:a COMA STR:b LLAVDER 
+                {:RESULT=/*"${NewValor,"+ a + "," +*/ b /*+"}"*/ ; System.out.println("${NewValor,"+ a + "," + b+"}");:}
 ;
 archivo_json ::= LLAVIZQ miembro:a LLAVDER  {:RESULT="{"+a+"}";:}
 ;
