@@ -93,7 +93,7 @@ non terminal sentencias_graficas, sentencia_grafica;
 non terminal elementos_string, elementos_double;
 non terminal sentencia_print;
 non terminal sentencia_declaracion,sentencia_globales;
-non terminal sentenciaIf, sentenciaElse, sentenciaSwitch, sentenciasCase;
+non terminal sentenciaIf, sentenciaElse, sentenciaSwitch, sentenciasCase,sentenciasExtra,usoBreak;
 non terminal sentenciaFor, sentenciaDoWhile, sentenciaWhile;
 non terminal expresion;
 non terminal tipo_dato;
@@ -225,9 +225,14 @@ sentenciaSwitch ::= PR_SWITCH PARIZQ ID:a PARDER LLAVIZQ sentenciasCase:b LLAVDE
 {: RESULT="def switch(case, "+ a +"):{\n" + "switcher = { " + b + "\n}}"; :}
 ;
 
-sentenciasCase ::= PR_CASE expresion:a DOSPUNTOS sentencias:b PR_BREAK PTCOMA   {: RESULT= a+": " + b+ ", \n "; :}
-                | PR_CASE expresion:a DOSPUNTOS sentencias:b PR_BREAK PTCOMA sentenciasCase:c {: RESULT= a+": " + b+ ", \n " + c; :}
-                | PR_DEFAULT sentencias:b PR_BREAK PTCOMA{: RESULT="4: " + b+ ","; :}
+sentenciasCase ::= PR_CASE expresion:a DOSPUNTOS sentenciasExtra:b usoBreak  sentenciasCase:c {: RESULT= a+": " + b+ ", \n " + c; :}
+                | PR_CASE expresion:a DOSPUNTOS sentenciasExtra:b sentenciasCase:c {: RESULT= a+": " + b+ ", \n " + c; :}
+                | PR_DEFAULT DOSPUNTOS sentencia:b {: RESULT="4: " + b+ ","; :}
+;
+usoBreak ::=  PR_BREAK PTCOMA
+;
+sentenciasExtra ::= expresion:a IGUAL expresion:b PTCOMA{: RESULT=a+"=" + b+ ";"; :}
+                |expresion:a IGUAL expresion:b PTCOMA sentencias:c {: RESULT=a+"=" + b+ ";\n"+c; :}
 ;
 
 sentenciaWhile ::= PR_WHILE PARIZQ expresion:a PARDER LLAVIZQ sentencias:b LLAVDER {: RESULT="while "+ a +":{\n" + b + "\n}"; :}
