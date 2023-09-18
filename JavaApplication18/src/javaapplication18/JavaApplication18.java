@@ -103,23 +103,27 @@ public class JavaApplication18 {
 "	\"variable2\": 5.0\n" +
 "\n" +
 "}";
-       String test ="\n" +
-"        case 1:\n" +
-"            precio = 55;\n" +
-"            break;\n" +
-"        case 2:\n" +
-"            precio = 25;\n" +
-"        case 3:\n" +
-"            precio = 40;\n" +
-"        default:\n" +
-"            Console.Write(\"No válido. Escoja 1, 2, o 3.\");\n" +
-"    ";
+       String test ="	\n" +
+"		Console.Write(\"el valor de a es: \" + a);\n" +
+"        a = a+1;\n" +
+"	\n" ;
        
     System.out.println("");
     //String contenido = AnalizadorLexico.ReporteLexemas(test);
     //GuardarArchivo.writeToFile("Reportes/Lexemas.html", contenido);
     
-    String py ="";
+    String py ="+\n" +
+"\"    for (int b=0; b<10; b++){\\n\" +\n" +
+"\"        Console.Write(\\\"el valor de b es: \\\" + b);\\n\" +\n" +
+"\"    }\\n\" +\n" +
+"\"    int c = 1;\\n\" +\n" +
+"\"    do {\\n\" +\n" +
+"\"        Console.Write(\\\"el valor de c es: \\\" + c);\\n\" +\n" +
+"\"        c=c+1;\\n\" +\n" +
+"\"    } while(c < 5);\\n\" +\n" +
+"\"    \\n\" +\n" +
+"\"\\n\" +\n" +
+"\"}\"";
     }
     static List<String> ejeX = new ArrayList<>();
     static List<Double> values = new ArrayList<>();

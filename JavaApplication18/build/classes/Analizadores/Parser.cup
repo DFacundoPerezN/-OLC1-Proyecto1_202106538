@@ -218,21 +218,20 @@ sentenciaElse ::= PR_ELSE PR_IF PARIZQ expresion:a PARDER LLAVIZQ sentencias:b L
 ;
 
 sentenciaFor ::= PR_FOR PARIZQ tipo_dato ID IGUAL expresion PTCOMA ID:a MENORQUE ENTERO:b PTCOMA ID MAS MAS PARDER LLAVIZQ sentencias:c LLAVDER 
-{: RESULT="for"+ a +"in range(1,"+b+"):{\n"+c+"\n}"; :}
+{: RESULT="for "+ a +" in range(1,"+b+"):{\n"+c+"\n}"; :}
 ;
 
 sentenciaSwitch ::= PR_SWITCH PARIZQ ID:a PARDER LLAVIZQ sentenciasCase:b LLAVDER  
-{: RESULT="def switch(case, "+ a +"):{\n" + "switcher = { " + b + "\n}}"; :}
+{: RESULT="def switch(case, "+ a +"):{\n" + "switcher = { " + b + "\n} }"; :}
 ;
 
-sentenciasCase ::= PR_CASE expresion:a DOSPUNTOS sentenciasExtra:b usoBreak  sentenciasCase:c {: RESULT= a+": " + b+ ", \n " + c; :}
-                | PR_CASE expresion:a DOSPUNTOS sentenciasExtra:b sentenciasCase:c {: RESULT= a+": " + b+ ", \n " + c; :}
+sentenciasCase ::= PR_CASE expresion:a DOSPUNTOS sentencias:b usoBreak  sentenciasCase:c {: RESULT= a+": " + b+ ", \n " + c; :}
+                | PR_CASE expresion:a DOSPUNTOS sentencias:b sentenciasCase:c {: RESULT= a+": " + b+ ", \n " + c; :}
                 | PR_DEFAULT DOSPUNTOS sentencia:b {: RESULT="4: " + b+ ","; :}
 ;
 usoBreak ::=  PR_BREAK PTCOMA
 ;
-sentenciasExtra ::= expresion:a IGUAL expresion:b PTCOMA{: RESULT=a+"=" + b+ ";"; :}
-                |expresion:a IGUAL expresion:b PTCOMA sentencias:c {: RESULT=a+"=" + b+ ";\n"+c; :}
+sentenciasExtra ::= ID:a IGUAL expresion:b PTCOMA sentencias:c {: RESULT=a+"=" + b+ ";\n"+c; :}
 ;
 
 sentenciaWhile ::= PR_WHILE PARIZQ expresion:a PARDER LLAVIZQ sentencias:b LLAVDER {: RESULT="while "+ a +":{\n" + b + "\n}"; :}
@@ -252,7 +251,8 @@ sentencia_print ::= PR_CONSOLE PUNTO PR_WRITE PARIZQ expresion:a PARDER PTCOMA
     :}
 ;
 
-sentencia_declaracion ::= tipo_dato:a ID:b IGUAL expresion:c PTCOMA {:RESULT=a+" "+b+" = "+c+";";:}
+sentencia_declaracion ::= tipo_dato:a ID:b IGUAL expresion:c PTCOMA {:RESULT=a+" "+b+" = "+c+";\n";:}
+                        |ID:b IGUAL expresion:c PTCOMA {:RESULT=b+" = "+c+";\n";:}
                         |tipo_dato:a ID:b PTCOMA    {:RESULT=a+" "+b+";";:}
                         |tipo_dato:a CORIZQ CORDER ID:b IGUAL lista:c PTCOMA {:RESULT= a +" [] "+b+ " = " +c+ ";" ;:};
 

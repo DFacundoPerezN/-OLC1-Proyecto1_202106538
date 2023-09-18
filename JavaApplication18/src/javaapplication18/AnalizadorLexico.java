@@ -189,7 +189,7 @@ public class AnalizadorLexico {
             }
             salida = salida.replaceAll(";", "");
             salida = salida.replace(":{", ":");            
-            salida = salida.replace("\n}", "\n");            
+            //salida = salida.replace("\n}", "\n");            
             salida = salida.replace("\t}", "\t");
         }
         
