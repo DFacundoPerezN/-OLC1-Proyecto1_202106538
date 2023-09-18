@@ -114,10 +114,48 @@ public class JavaApplication18 {
     System.out.println("");
     //String contenido = AnalizadorLexico.ReporteLexemas(m);
     //GuardarArchivo.writeToFile("Reportes/Lexemas.html", contenido);
+    
+    String py ="def main() :{\n" +
+" int b = 2;\n" +
+"int a = 1;\n" +
+"int var1 = 5 + 8 * 9;\n" +
+"if b > a:{\n" +
+"print(\"b mayor que a\");\n" +
+"}\n" +
+"elif a == b:{\n" +
+"print(\"a y b son iguales\");\n" +
+"}\n" +
+"def DefinirGlobales() :{\n" +
+" String reporte1 = \"Reporte 1\";\n" +
+"Double pe1 = 0.8;\n" +
+"Double pe2 = 0.5;\n" +
+"Double pe3 = 0.2;\n" +
+"Double po1 = \"valor1\";\n" +
+"Double po2 = \"valor1\";\n" +
+"String vart = \"Valor Obtenido\";\n" +
+"String var2 = \"Valor Esperado clase 1\";\n" +
+"String var22 = \"Valor Obtenido clase 1\";\n" +
+"String var3 = \"Valore Esperado clase 2\";\n" +
+"String var3 = \"Valor Obtenido clase 2\";\n" +
+"}\n" +
+"def GraficaBarras() :{\n" +
+" String titulo = \"Reporte 1\";\n" +
+"String [] ejeX = {\"Probabilidad Esperada clase 1\",\"Probabilidad Obtenida Clase 1\",\"Valor Esperado clase 1\",\"Valor Obtenido clase 1\",\"Valor Obtenido clase 2\",null};\n" +
+"int [] valores = {0.8,0.0,0.5,0.0,0.2,null};\n" +
+"String tituloX = \"Atributo\";\n" +
+"String tituloY = \"Puntaje\";\n" +
+"}\n" +
+"while a < 10:{\n" +
+"print(\"el valor de a es: \" + a)\n" +
+"}\n" +
+"} \n" +
+"f__name__ = “__main__”: \n" +
+"	main()";
     }
     static List<String> ejeX = new ArrayList<>();
     static List<Double> values = new ArrayList<>();
     public static GraficoPie graficoPieGlobal = new GraficoPie("T","X","Y",ejeX,values);
     public static GraficoBarras graficoBarrasGlobal= new GraficoBarras("T","X","Y",ejeX,values);
     
+
 }

@@ -173,7 +173,36 @@ public class AnalizadorLexico {
             System.out.println("Error fatal en compilación de entrada.");
         }
         
-        return result;
+        return agregarTab(result);
     }
+    static    String agregarTab(String texto){
+        String salida="";
+        String [] lineas=texto.split("\n");
+        int cTabs =0;
+        
+        for (String linea : lineas) {
+            salida += "\n"+tabulaciones(cTabs) + linea;
+            if (linea.contains(":{")) {
+                cTabs++;
+            } else if (linea.contains("}") && !(linea.contains("{"))) {
+                cTabs--;
+            }
+            salida = salida.replaceAll(";", "");
+            salida = salida.replace(":{", ":");            
+            salida = salida.replace("\n}", "\n");            
+            salida = salida.replace("\t}", "\t");
+        }
+        
+        return salida;
+    }
+    
+    
+    static String tabulaciones(int cantidad){
+            String tabulaciones="";
+            for(int c=0; c<cantidad;c++){
+                tabulaciones+="\t";
+            }
+            return tabulaciones;
+        }
     
 }
