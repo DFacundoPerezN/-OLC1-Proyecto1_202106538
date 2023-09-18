@@ -219,6 +219,8 @@ sentenciaElse ::= PR_ELSE PR_IF PARIZQ expresion:a PARDER LLAVIZQ sentencias:b L
 
 sentenciaFor ::= PR_FOR PARIZQ tipo_dato ID IGUAL expresion PTCOMA ID:a MENORQUE ENTERO:b PTCOMA ID MAS MAS PARDER LLAVIZQ sentencias:c LLAVDER 
 {: RESULT="for "+ a +" in range(1,"+b+"):{\n"+c+"\n}"; :}
+                |PR_FOR PARIZQ tipo_dato ID IGUAL expresion PTCOMA ID:a MENOROIGUAL ENTERO:b PTCOMA ID MAS MAS PARDER LLAVIZQ sentencias:c LLAVDER 
+                {: RESULT="for "+ a +" in range(1,"+b+"):{\n"+c+"\n}"; :}
 ;
 
 sentenciaSwitch ::= PR_SWITCH PARIZQ ID:a PARDER LLAVIZQ sentenciasCase:b LLAVDER  
