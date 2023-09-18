@@ -49,8 +49,8 @@ public class AnalizadorLexico {
         "\t\t<td>Columna</td>";
         html +="</tr>";
         
-        for (int j=1; j< lineas.length+1; j++){    
-            for(int i=1; i< lineas[j].length()+1; i++){
+        for (int j=0; j< lineas.length; j++){    
+            for(int i=0; i< lineas[j].length(); i++){
                 if (!Character.isDigit(lineas[j].charAt(i)) && !Character.isAlphabetic(lineas[j].charAt(i)) 
                     && lineas[j].charAt(i)!='"'&& lineas[j].charAt(i)!=' '&& lineas[j].charAt(i)!='\\'
                     && lineas[j].charAt(i)!='/'&& lineas[j].charAt(i)!='{'&& lineas[j].charAt(i)!='}'
