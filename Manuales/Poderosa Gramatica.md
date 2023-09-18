@@ -1,4 +1,5 @@
-```ini::= entradas
+```BNF
+ini::= entradas
 ;
 
 entradas ::= "void" "main" "()" "{" sentencias:a "}"
