@@ -55,6 +55,7 @@ DECIMALES=[0-9]+("."[  |0-9]+)?
 ID = [A-Za-z_][A-Za-z0-9_]*
 BOOL = "true"| "false"
 STR  =   \"([^\"]|"\\\"")+\"
+CHAR = '[^']'
 LineTerminator = \r|\n|\r\n
 InputCharacter = [^\r\n]
 
@@ -131,6 +132,11 @@ comentarioSimple = "//"(InputCharacter)*(LineTerminator)?
     System.out.println("Reconocio PR: "+yytext()); 
     lexemas.add( new Lexema("string","Palabra Reservada",yyline,yychar));
     return new Symbol(sym.PR_STRING,yyline,yychar,yytext());     
+}  
+"CHAR" {  
+    System.out.println("Reconocio PR: "+yytext()); 
+    lexemas.add( new Lexema("char","Palabra Reservada",yyline,yychar));
+    return new Symbol(sym.PR_CHAR,yyline,yychar,yytext());     
 } 
 "console" {  
     System.out.println("Reconocio PR: "+yytext()); 
@@ -332,6 +338,9 @@ comentarioSimple = "//"(InputCharacter)*(LineTerminator)?
 {STR} {
     lexemas.add( new Lexema(yytext(),"Cadena de caracteres",yyline,yychar));
     return new Symbol(sym.STR,yyline,yychar, yytext());}
+{CHAR} {
+    lexemas.add( new Lexema(yytext(),"Caracter",yyline,yychar));
+    return new Symbol(sym.CHAR,yyline,yychar, yytext());}
 . {
     //Aqui se debe guardar los valores (yytext(), yyline, yychar ) para posteriormente generar el reporte de errores Léxicos.
     System.out.println("Este es un error lexico: "+yytext()+ ", en la linea: "+yyline+", en la columna: "+yychar);

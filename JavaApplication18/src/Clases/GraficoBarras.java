@@ -11,8 +11,9 @@ import java.util.List;
  *
  * @author Faxx
  */
-public class GraficoBarras {
 
+public class GraficoBarras {
+    public GraficoBarras graficoBarrasGlobal;
     
     public List<String> ejeX = new ArrayList<>();
     public List<Double> valores = new ArrayList<>();

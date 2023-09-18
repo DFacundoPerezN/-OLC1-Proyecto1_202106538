@@ -68,13 +68,13 @@ terminal String ENTERO;
 terminal String DECIMAL;
 terminal String BOOLEANO;
 terminal String ID;
-terminal String STR;
+terminal String STR,CHAR;
 terminal String UMENOS;
 terminal String PR_VOID;
 terminal String PR_MAIN,PR_DGLOBALES ;
 terminal String PR_INT;
-terminal String PR_STRING;
-terminal String PR_DECIMAL; 
+terminal String PR_STRING, PR_CHAR;
+terminal String PR_DOUBLE; 
 terminal String PR_BOOL; 
 terminal String PR_CONSOLE;
 terminal String PR_WRITE;
@@ -148,9 +148,9 @@ sentencia_global ::= PR_STRING ID:a IGUAL STR:b PTCOMA
                 {:RESULT="String "+a+" = "+b+ ";";  mapaString.put(a,b); mostrarStringGlobales();:}
                     |PR_STRING ID:a IGUAL referencia_json:b PTCOMA 
                 {:RESULT="String "+a+" = "+b+";"; mapaString.put(a,mapaString.get(b)); mostrarStringGlobales();:}
-                    |PR_DECIMAL ID:a IGUAL DECIMAL:b PTCOMA 
+                    |PR_DOUBLE ID:a IGUAL DECIMAL:b PTCOMA 
                 {:RESULT="Double "+a+" = "+b+";"; mapaDouble.put(a,Double.parseDouble(b)); mostrarIntGlobales();:}
-                    |PR_DECIMAL ID:a IGUAL referencia_json:b PTCOMA 
+                    |PR_DOUBLE ID:a IGUAL referencia_json:b PTCOMA 
                 {:RESULT="Double "+a+" = "+b+";"; mapaDouble.put(a,mapaDouble.get(b)); mostrarIntGlobales();:}
 ;
 
@@ -177,7 +177,7 @@ sentencia_grafica ::= PR_STRING PR_TITULO IGUAL valor_string:a PTCOMA
                     | PR_STRING CORIZQ CORDER PR_EJEX IGUAL LLAVIZQ elementos_string:a LLAVDER PTCOMA     
                 {:RESULT="String [] ejeX = {"+a+"}";:}
 
-                    | PR_DECIMAL CORIZQ CORDER PR_VALORES IGUAL LLAVIZQ elementos_double:a LLAVDER PTCOMA     
+                    | PR_DOUBLE CORIZQ CORDER PR_VALORES IGUAL LLAVIZQ elementos_double:a LLAVDER PTCOMA     
                 {:RESULT="int [] valores = {"+a+"}";:}
 ;
 elementos_double ::= valor_double:a {: RESULT = a;  agregarValor(a+"");:}
@@ -259,9 +259,10 @@ elementos ::= expresion:a   {:RESULT=""+a;:}
 ;
 
 tipo_dato ::= PR_INT    {:RESULT="int";:}
-            |PR_DECIMAL  {:RESULT="double";:}
+            |PR_DOUBLE  {:RESULT="double";:}
             |PR_STRING {:RESULT="string";:}
             |PR_BOOL    {:RESULT="bool";:}
+            |PR_CHAR    {:RESULT="char";:}
 ;
 
 expresion ::= expresion:a MAS expresion:b {: RESULT = a + " + " + b; :}
@@ -283,6 +284,7 @@ expresion ::= expresion:a MAS expresion:b {: RESULT = a + " + " + b; :}
             | DECIMAL:a {:RESULT=a;:}
             | ID:a {:RESULT=a;:}
             | STR:a {:RESULT=a;:}
+            | CHAR:a {:RESULT=a;:}
             | BOOLEANO:a {:RESULT=a;:}
             | referencia_json:a {:RESULT=a;:}
 ;

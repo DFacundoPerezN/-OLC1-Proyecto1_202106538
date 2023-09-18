@@ -10,63 +10,65 @@ public class sym {
   /* terminals */
   public static final int DOSPUNTOS = 12;
   public static final int DISTINTO = 23;
-  public static final int PR_INT = 36;
+  public static final int PR_INT = 37;
   public static final int POR = 16;
-  public static final int PR_FOR = 45;
-  public static final int PR_TITULO = 54;
-  public static final int PR_BREAK = 49;
+  public static final int CHAR = 32;
+  public static final int PR_FOR = 47;
+  public static final int PR_TITULO = 56;
+  public static final int PR_BREAK = 51;
   public static final int STR = 31;
   public static final int EQUALS = 20;
   public static final int ENTERO = 27;
-  public static final int PR_VOID = 33;
-  public static final int PR_IF = 43;
-  public static final int PR_ELSE = 44;
-  public static final int PR_TITULOY = 58;
+  public static final int PR_VOID = 34;
+  public static final int PR_IF = 45;
+  public static final int PR_ELSE = 46;
+  public static final int PR_TITULOY = 60;
   public static final int LLAVIZQ = 6;
-  public static final int PR_TITULOX = 57;
-  public static final int PR_WHILE = 50;
+  public static final int PR_TITULOX = 59;
+  public static final int PR_WHILE = 52;
   public static final int NOT = 26;
   public static final int AND = 24;
-  public static final int PR_NEWVALOR = 42;
+  public static final int PR_NEWVALOR = 44;
   public static final int MAYORQUE = 19;
   public static final int IGUAL = 9;
   public static final int CORDER = 7;
   public static final int DIVIDIDO = 17;
   public static final int OR = 25;
-  public static final int PR_SWITCH = 46;
-  public static final int UMENOS = 32;
-  public static final int PR_DECIMAL = 38;
+  public static final int PR_SWITCH = 48;
+  public static final int UMENOS = 33;
   public static final int ID = 30;
-  public static final int PR_VALORES = 56;
+  public static final int PR_VALORES = 58;
   public static final int EOF = 0;
   public static final int PARIZQ = 3;
   public static final int DECIMAL = 28;
   public static final int MAYOROIGUAL = 21;
-  public static final int PR_GBARRAS = 52;
+  public static final int PR_GBARRAS = 54;
   public static final int error = 1;
   public static final int COMA = 11;
-  public static final int PR_DGLOBALES = 35;
+  public static final int PR_DGLOBALES = 36;
   public static final int MENOS = 15;
-  public static final int PR_STRING = 37;
-  public static final int vacio = 59;
+  public static final int PR_STRING = 38;
+  public static final int PR_CHAR = 39;
+  public static final int vacio = 61;
   public static final int MENOROIGUAL = 22;
   public static final int MENORQUE = 18;
   public static final int LLAVDER = 5;
-  public static final int PR_CASE = 47;
+  public static final int PR_CASE = 49;
   public static final int PUNTO = 10;
-  public static final int PR_DO = 51;
-  public static final int PR_DEFAULT = 48;
-  public static final int PR_WRITE = 41;
+  public static final int PR_DO = 53;
+  public static final int PR_DEFAULT = 50;
+  public static final int PR_WRITE = 43;
   public static final int DOLLAR = 13;
-  public static final int PR_EJEX = 55;
+  public static final int PR_EJEX = 57;
   public static final int PTCOMA = 2;
   public static final int BOOLEANO = 29;
-  public static final int PR_GPIE = 53;
-  public static final int PR_BOOL = 39;
+  public static final int PR_GPIE = 55;
+  public static final int PR_BOOL = 41;
   public static final int PARDER = 4;
   public static final int CORIZQ = 8;
-  public static final int PR_CONSOLE = 40;
-  public static final int PR_MAIN = 34;
+  public static final int PR_DOUBLE = 40;
+  public static final int PR_CONSOLE = 42;
+  public static final int PR_MAIN = 35;
   public static final int MAS = 14;
   public static final String[] terminalNames = new String[] {
   "EOF",
@@ -101,13 +103,15 @@ public class sym {
   "BOOLEANO",
   "ID",
   "STR",
+  "CHAR",
   "UMENOS",
   "PR_VOID",
   "PR_MAIN",
   "PR_DGLOBALES",
   "PR_INT",
   "PR_STRING",
-  "PR_DECIMAL",
+  "PR_CHAR",
+  "PR_DOUBLE",
   "PR_BOOL",
   "PR_CONSOLE",
   "PR_WRITE",

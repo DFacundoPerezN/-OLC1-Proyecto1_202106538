@@ -1212,7 +1212,7 @@ public class Scanner implements java_cup.runtime.Scanner {
           case 51: 
             { System.out.println("Reconocio PR: "+yytext()); 
     lexemas.add( new Lexema("double","Palabra Reservada",yyline,yychar));
-    return new Symbol(sym.PR_DOUBLE,yyline,yychar,yytext());
+    return new Symbol(sym.PR_DECIMAL,yyline,yychar,yytext());
             } 
             // fall through
           case 111: break;

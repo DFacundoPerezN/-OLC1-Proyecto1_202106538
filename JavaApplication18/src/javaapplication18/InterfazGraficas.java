@@ -9,6 +9,8 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import static javaapplication18.InterfazInicial.graficoBarras;
+import static javaapplication18.JavaApplication18.graficoBarrasGlobal;
+import static javaapplication18.JavaApplication18.graficoPieGlobal;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -137,24 +139,31 @@ public class InterfazGraficas extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        String title = graficoBarrasGlobal.getTitulo();
+        String titleY = graficoBarrasGlobal.getTituloY();
+        String titleX = graficoBarrasGlobal.getTituloX();
+        List<String> ejeX = graficoBarrasGlobal.getEjeX();
+        List<Double> valores = graficoBarrasGlobal.getValores();
+        
         double n1 = 9.0;
         double n2 = 7.0;
         double n3 = 8.9; 
         
         double [] n ={n1,n2,n3};
         
-        String[] nombres = {"Hugo","Paco","Luis"};
+        //String[] nombres = {"Hugo","Paco","Luis"};
+        
+        
         
         DefaultCategoryDataset datos = new DefaultCategoryDataset();
-        
-        for (int i=0; i<n.length;i++){
-            datos.setValue(n[i],"Nota",nombres[i]);
+        for (int i=0; i<valores.size();i++){
+          datos.setValue(valores.get(i),title,ejeX.get(i));
         }
         
         JFreeChart grafico_barras = ChartFactory.createBarChart3D(
-                "NOTAS",    //titulo grafica
-                "Estudiantes",  //Titulo Eje x
-                "notas",        //titulo Eje Y
+                title,    //titulo grafica
+                titleX,  //Titulo Eje x
+                titleY,        //titulo Eje Y
                 datos, 
                 PlotOrientation.VERTICAL, 
                 true, 
@@ -174,19 +183,15 @@ public class InterfazGraficas extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        double n1 = 22.0;
-        double n2 = 25.5;
-        double n3 = 36.8; 
-        double n4 = 15.7;
+        String title = graficoPieGlobal.getTitulo();
         
         List<Double> valores = new ArrayList<>();
-        valores.add(n1);
-        valores.add(n2);
-        valores.add(n3);
-        valores.add(n4);
         
-        List<String> ejeX = new ArrayList<>(List.of("Uno", "Dos", "Tres","Cuatro"));
+        valores = graficoPieGlobal.getValores();
+        
+        List<String> ejeX = new ArrayList<>();
         //ejeX = (List.of("Uno", "Dos", "Tres","Cuatro"));
+        ejeX = graficoPieGlobal.getEjeX();
         
         DefaultPieDataset infoPie = new DefaultPieDataset();
         for (int i=0; i<valores.size();i++){
@@ -194,7 +199,7 @@ public class InterfazGraficas extends javax.swing.JFrame {
         }
         
         JFreeChart graficoPie = ChartFactory.createPieChart3D(
-                "Titulaso",
+                title,
                 infoPie, 
                 true,
                 true,

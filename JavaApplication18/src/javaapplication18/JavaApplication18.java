@@ -12,6 +12,8 @@ import Analizadores.Parser;
 import Analizadores.Scanner;
 import Clases.GraficoBarras;
 import Clases.GraficoPie;
+import java.util.ArrayList;
+import java.util.List;
 
         
 /**
@@ -24,7 +26,7 @@ public class JavaApplication18 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //new InterfazInicial().setVisible(true);
+        new InterfazInicial().setVisible(true);
         String p = "\n" +
         "\n" +
         "{\n" +
@@ -113,7 +115,9 @@ public class JavaApplication18 {
     //String contenido = AnalizadorLexico.ReporteLexemas(m);
     //GuardarArchivo.writeToFile("Reportes/Lexemas.html", contenido);
     }
-    public GraficoPie graficoPieGlobal;
-    public GraficoBarras graficoBarrasGlobal;
+    static List<String> ejeX = new ArrayList<>();
+    static List<Double> values = new ArrayList<>();
+    public static GraficoPie graficoPieGlobal = new GraficoPie("T","X","Y",ejeX,values);
+    public static GraficoBarras graficoBarrasGlobal= new GraficoBarras("T","X","Y",ejeX,values);
     
 }

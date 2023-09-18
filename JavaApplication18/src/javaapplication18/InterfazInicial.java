@@ -4,15 +4,22 @@
  */
 package javaapplication18;
 
+import Analizadores.Parser;
 import Clases.GraficoBarras;
+import Clases.GraficoPie;
+import java.io.BufferedReader;
 //import Clases.GraficoBarras.GraficoBarrasGlobal;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.StringReader;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
-import javaapplication18.JavaApplication18;
+
 import javaapplication18.GuardarArchivo;
 import javaapplication18.AnalizadorLexico;
+import static javaapplication18.AnalizadorLexico.reemplazarComentarios;
+import static javaapplication18.JavaApplication18.graficoBarrasGlobal;
+import static javaapplication18.JavaApplication18.graficoPieGlobal;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
@@ -33,6 +40,7 @@ public class InterfazInicial extends javax.swing.JFrame {
     public InterfazInicial() {
         initComponents();
         jTextArea2.setEditable(false);
+        
 
     }
 
@@ -320,32 +328,32 @@ public class InterfazInicial extends javax.swing.JFrame {
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Aqui va a leer el JSON
-        //GraficoBarras f = graficoBarrasGlobal;
-        new InterfazGraficas().setVisible(true);
+        String texto= reemplazarComentarios(jTextArea1.getText());
+        Analizadores.Scanner lexico  = new Analizadores.Scanner(new BufferedReader( new StringReader(texto)));
+        Parser sintactico =new Parser(lexico);
         
-        String[] carnets = {"carnet1", "carnet2", "carnet3", "carnet4"};
-        double[] notas = {61, 94, 85, 78.5};
-        String titulo = "Notas alumnos OLC1";
-        String tituloX = "Carnets";
-        String tituloY = "Punteo";
-        // Crear un conjunto de datos
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        for (int i = 0; i < carnets.length; i++) {
-            dataset.addValue(notas[i], "Punteo", carnets[i]);
+        try {
+            sintactico.parse();
+        }catch (Exception ex) {
+            //Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error fatal en compilación de entrada.");
         }
         
-        // Crear la gráfica de barras
-        graficoBarras = ChartFactory.createBarChart(
-                titulo, // Título
-                tituloX, // Etiqueta del eje X
-                tituloY, // Etiqueta del eje Y
-                dataset, // Datos
-                PlotOrientation.VERTICAL, // Orientación de la gráfica
-                true, // Mostrar leyenda
-                true, // Usar tooltips
-                false // Usar URLs
-        );
+        graficoPieGlobal.setEjeX(sintactico.ejeX);
+        graficoPieGlobal.setValores(sintactico.valores);
+        graficoPieGlobal.setTitulo(sintactico.titulo);
+        graficoPieGlobal.setTituloEjeX(sintactico.tituloX);
+        graficoPieGlobal.setTituloEjeY(sintactico.tituloY);
         
+        graficoBarrasGlobal.setEjeX(sintactico.ejeX);
+        graficoBarrasGlobal.setValores(sintactico.valores);
+        graficoBarrasGlobal.setTitulo(sintactico.titulo);
+        graficoBarrasGlobal.setTituloX(sintactico.tituloX);
+        graficoBarrasGlobal.setTituloY(sintactico.tituloY);
+        
+        new InterfazGraficas().setVisible(true);
+        
+
         
         
     }//GEN-LAST:event_jButton1ActionPerformed
